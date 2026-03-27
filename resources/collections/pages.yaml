@@ -1,0 +1,11 @@
+title: Pages
+route: '/{slug}'
+layout: layout
+template: default
+blueprints:
+  - page
+revisions: false
+sort_dir: asc
+date_behavior:
+  past: public
+  future: private

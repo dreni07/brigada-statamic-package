@@ -1,0 +1,7 @@
+title: Images
+disk: public
+path: images
+allow_uploads: true
+allow_downloads: true
+allow_moving: true
+allow_renaming: true

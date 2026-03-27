@@ -1,0 +1,31 @@
+{
+    "name": "brigada/statamic-cms-starter",
+    "description": "A ready-to-use Statamic starter package providing a pre-configured CMS setup with blueprints, collections, assets, and an admin user command.",
+    "type": "library",
+    "require": {
+        "php": "^8.2",
+        "statamic/cms": "^6.7"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^11.0",
+        "phpunit/phpunit": "^13.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Brigada\\StatamicCmsStarter\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Brigada\\StatamicCmsStarter\\CmsStarterServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "config": {
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true
+        }
+    }
+}

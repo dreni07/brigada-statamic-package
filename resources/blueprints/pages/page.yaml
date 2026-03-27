@@ -1,0 +1,45 @@
+title: Page
+sections:
+  main:
+    display: Main
+    fields:
+      -
+        handle: title
+        field:
+          type: text
+          display: Title
+          validate:
+            - required
+      -
+        handle: slug
+        field:
+          type: slug
+          display: Slug
+          validate:
+            - required
+      -
+        handle: content
+        field:
+          type: markdown
+          display: Content
+  seo:
+    display: SEO
+    fields:
+      -
+        handle: seo_title
+        field:
+          type: text
+          display: Meta Title
+      -
+        handle: seo_description
+        field:
+          type: textarea
+          display: Meta Description
+          character_limit: 160
+      -
+        handle: og_image
+        field:
+          type: assets
+          display: OG Image
+          container: images
+          max_files: 1
