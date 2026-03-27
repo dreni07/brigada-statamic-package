@@ -1,0 +1,1 @@
+# brigada-statamic-package
