@@ -72,11 +72,13 @@ class CmsInstallCommand extends Command
             return;
         }
 
-        $user = User::make()
+        User::make()
             ->email($email)
             ->data(['name' => $name])
-            ->password($password);
+            ->password($password)
+            ->save();
 
+        $user = User::findByEmail($email);
         $user->makeSuper();
         $user->save();
 
