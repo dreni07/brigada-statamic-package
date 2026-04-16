@@ -1,0 +1,31 @@
+title: Contact
+honeypot: winnie
+fields:
+  -
+    handle: name
+    field:
+      type: text
+      display: Name
+      validate:
+        - required
+  -
+    handle: email
+    field:
+      type: text
+      display: Email
+      input_type: email
+      validate:
+        - required
+        - email
+  -
+    handle: phone
+    field:
+      type: text
+      display: Phone
+  -
+    handle: message
+    field:
+      type: textarea
+      display: Message
+      validate:
+        - required

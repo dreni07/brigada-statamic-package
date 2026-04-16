@@ -13,9 +13,10 @@ class CmsInstallCommand extends Command
         {--skip-blueprints : Skip blueprint installation}
         {--skip-collections : Skip collection creation}
         {--skip-assets : Skip asset container setup}
-        {--skip-content : Skip default content copy}';
+        {--skip-content : Skip default content copy}
+        {--skip-forms : Skip form installation}';
 
-    protected $description = 'Install the Brigada Statamic CMS starter kit with blueprints, collections, assets, and an admin user.';
+    protected $description = 'Install the Brigada Statamic CMS starter kit with blueprints, collections, assets, forms, and an admin user.';
 
     protected string $packageResources;
 
@@ -44,6 +45,10 @@ class CmsInstallCommand extends Command
             $this->installAssetContainers();
         }
 
+        if (! $this->option('skip-forms')) {
+            $this->installForms();
+        }
+
         if (! $this->option('skip-content')) {
             $this->installContent();
         }
@@ -67,14 +72,11 @@ class CmsInstallCommand extends Command
             return;
         }
 
-        User::make()
+        $user = User::make()
             ->email($email)
             ->data(['name' => $name])
-            ->password($password)
-            ->assignRole('super_admin')
-            ->save();
+            ->password($password);
 
-        $user = User::findByEmail($email);
         $user->makeSuper();
         $user->save();
 
@@ -105,6 +107,27 @@ class CmsInstallCommand extends Command
 
             File::copyDirectory($directory, $destination);
             $this->info("Blueprint [{$collectionName}] installed.");
+        }
+
+        // Install fieldsets
+        $fieldsetSource = $this->packageResources . '/fieldsets';
+
+        if (File::isDirectory($fieldsetSource)) {
+            $fieldsetDest = resource_path('fieldsets');
+            File::ensureDirectoryExists($fieldsetDest);
+
+            foreach (File::files($fieldsetSource) as $file) {
+                $filename = $file->getFilename();
+                $destFile = "{$fieldsetDest}/{$filename}";
+
+                if (File::exists($destFile)) {
+                    $this->warn("Fieldset [{$filename}] already exists. Skipping.");
+                    continue;
+                }
+
+                File::copy($file->getPathname(), $destFile);
+                $this->info("Fieldset [{$filename}] installed.");
+            }
         }
     }
 
@@ -161,6 +184,34 @@ class CmsInstallCommand extends Command
             File::ensureDirectoryExists(dirname($destination));
             File::copy($file->getPathname(), $destination);
             $this->info("Asset container [{$filename}] installed.");
+        }
+    }
+
+    protected function installForms(): void
+    {
+        $this->info('--- Installing Forms ---');
+
+        $source = $this->packageResources . '/forms';
+
+        if (! File::isDirectory($source)) {
+            $this->warn('No forms directory found in package resources. Skipping.');
+            return;
+        }
+
+        $files = File::files($source);
+
+        foreach ($files as $file) {
+            $filename = $file->getFilename();
+            $destination = resource_path("forms/{$filename}");
+
+            if (File::exists($destination)) {
+                $this->warn("Form [{$filename}] already exists. Skipping.");
+                continue;
+            }
+
+            File::ensureDirectoryExists(dirname($destination));
+            File::copy($file->getPathname(), $destination);
+            $this->info("Form [{$filename}] installed.");
         }
     }
 

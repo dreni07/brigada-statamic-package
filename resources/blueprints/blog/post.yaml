@@ -44,13 +44,4 @@ sections:
     display: SEO
     fields:
       -
-        handle: seo_title
-        field:
-          type: text
-          display: Meta Title
-      -
-        handle: seo_description
-        field:
-          type: textarea
-          display: Meta Description
-          character_limit: 160
+        import: seo

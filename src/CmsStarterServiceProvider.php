@@ -1,26 +1,30 @@
-<?php 
+<?php
 
-    namespace Brigada\StatamicCmsStarter;
+namespace Brigada\StatamicCmsStarter;
 
-    use Illuminate\Support\ServiceProvider;
-    use Brigada\StatamicCmsStarter\Commands\CmsInstallCommand;
+use Illuminate\Support\ServiceProvider;
+use Brigada\StatamicCmsStarter\Commands\CmsInstallCommand;
+use Brigada\StatamicCmsStarter\Listeners\ConvertUploadedImageToWebp;
+use Illuminate\Support\Facades\Event;
+use Statamic\Events\AssetUploaded;
 
-
-    class CmsStarterServiceProvider extends ServiceProvider 
+class CmsStarterServiceProvider extends ServiceProvider
+{
+    public function boot(): void
     {
-        public function boot(): void 
-        {
-            if ($this->app->runningInConsole()) {
-                $this->commands([
-                    CmsInstallCommand::class
-                ]);
+        Event::listen(AssetUploaded::class, ConvertUploadedImageToWebp::class);
 
-                $this->publishes([
-                    __DIR__ . '/../resources/blueprints' => resource_path('blueprints'),
-                    __DIR__ . '/../resources/fieldsets' => resource_path('fieldsets'),
-                    __DIR__ . '/../resources/content' => base_path('content')
-                ],'cms-starter');
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CmsInstallCommand::class,
+            ]);
 
-            }
+            $this->publishes([
+                __DIR__ . '/../resources/blueprints' => resource_path('blueprints'),
+                __DIR__ . '/../resources/fieldsets' => resource_path('fieldsets'),
+                __DIR__ . '/../resources/content' => base_path('content'),
+                __DIR__ . '/../resources/forms' => resource_path('forms'),
+            ], 'cms-starter');
         }
     }
+}

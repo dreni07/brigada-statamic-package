@@ -5,6 +5,7 @@ fields:
     field:
       type: text
       display: Meta Title
+      instructions: 'Leave empty to use the entry title.'
   -
     handle: seo_description
     field:
@@ -12,9 +13,35 @@ fields:
       display: Meta Description
       character_limit: 160
   -
+    handle: canonical_url
+    field:
+      type: text
+      display: Canonical URL
+      instructions: 'Optional. Set a custom canonical URL for this page.'
+      input_type: url
+  -
+    handle: no_index
+    field:
+      type: toggle
+      display: No Index
+      instructions: 'Enable to prevent search engines from indexing this page.'
+      default: false
+  -
     handle: og_image
     field:
       type: assets
       display: OG Image
       container: images
       max_files: 1
+  -
+    handle: og_type
+    field:
+      type: select
+      display: OG Type
+      instructions: 'The Open Graph type for this page.'
+      default: website
+      options:
+        website: Website
+        article: Article
+        product: Product
+        profile: Profile
