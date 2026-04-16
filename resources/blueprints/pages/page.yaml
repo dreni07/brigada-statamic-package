@@ -18,10 +18,154 @@ sections:
           validate:
             - required
       -
-        handle: content
+        handle: sections
         field:
-          type: markdown
-          display: Content
+          type: replicator
+          display: Sections
+          collapse: false
+          sets:
+            page_sections:
+              display: 'Page Sections'
+              sets:
+                hero:
+                  display: Hero
+                  icon: media-image-list
+                  fields:
+                    -
+                      handle: heading
+                      field:
+                        type: text
+                        display: Heading
+                        validate:
+                          - required
+                    -
+                      handle: subheading
+                      field:
+                        type: text
+                        display: Subheading
+                    -
+                      handle: background_image
+                      field:
+                        type: assets
+                        display: 'Background Image'
+                        container: images
+                        max_files: 1
+                    -
+                      handle: cta_button_text
+                      field:
+                        type: text
+                        display: 'CTA Button Text'
+                    -
+                      handle: cta_button_url
+                      field:
+                        type: text
+                        display: 'CTA Button URL'
+                        input_type: url
+                text_content:
+                  display: 'Text Content'
+                  icon: text-formatting-markdown
+                  fields:
+                    -
+                      handle: content
+                      field:
+                        type: markdown
+                        display: Content
+                        validate:
+                          - required
+                content_cards:
+                  display: 'Content Cards'
+                  icon: layout-grid
+                  fields:
+                    -
+                      handle: section_heading
+                      field:
+                        type: text
+                        display: 'Section Heading'
+                    -
+                      handle: cards
+                      field:
+                        type: grid
+                        display: Cards
+                        add_row: 'Add Card'
+                        fields:
+                          -
+                            handle: card_title
+                            field:
+                              type: text
+                              display: 'Card Title'
+                              validate:
+                                - required
+                          -
+                            handle: card_description
+                            field:
+                              type: textarea
+                              display: 'Card Description'
+                          -
+                            handle: card_image
+                            field:
+                              type: assets
+                              display: 'Card Image'
+                              container: images
+                              max_files: 1
+                          -
+                            handle: card_link
+                            field:
+                              type: text
+                              display: 'Card Link'
+                              input_type: url
+                cta:
+                  display: 'Call to Action'
+                  icon: button
+                  fields:
+                    -
+                      handle: heading
+                      field:
+                        type: text
+                        display: Heading
+                        validate:
+                          - required
+                    -
+                      handle: description
+                      field:
+                        type: textarea
+                        display: Description
+                    -
+                      handle: button_text
+                      field:
+                        type: text
+                        display: 'Button Text'
+                    -
+                      handle: button_url
+                      field:
+                        type: text
+                        display: 'Button URL'
+                        input_type: url
+                    -
+                      handle: button_style
+                      field:
+                        type: select
+                        display: 'Button Style'
+                        default: primary
+                        options:
+                          primary: Primary
+                          secondary: Secondary
+                          outline: Outline
+                contact_form:
+                  display: 'Contact Form'
+                  icon: form
+                  fields:
+                    -
+                      handle: form_heading
+                      field:
+                        type: text
+                        display: 'Form Heading'
+                    -
+                      handle: form_handle
+                      field:
+                        type: text
+                        display: 'Form Handle'
+                        default: contact
+                        instructions: 'The handle of the Statamic form to render.'
   seo:
     display: SEO
     fields:

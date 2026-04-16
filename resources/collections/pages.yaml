@@ -1,7 +1,5 @@
 title: Pages
 route: '/{slug}'
-layout: layout
-template: default
 blueprints:
   - page
 revisions: false

@@ -14,9 +14,11 @@ class CmsInstallCommand extends Command
         {--skip-collections : Skip collection creation}
         {--skip-assets : Skip asset container setup}
         {--skip-content : Skip default content copy}
-        {--skip-forms : Skip form installation}';
+        {--skip-forms : Skip form installation}
+        {--skip-views : Skip view publishing}
+        {--skip-config : Skip config publishing}';
 
-    protected $description = 'Install the Brigada Statamic CMS starter kit with blueprints, collections, assets, forms, and an admin user.';
+    protected $description = 'Install the Brigada Statamic CMS starter kit with blueprints, collections, assets, forms, views, and an admin user.';
 
     protected string $packageResources;
 
@@ -51,6 +53,14 @@ class CmsInstallCommand extends Command
 
         if (! $this->option('skip-content')) {
             $this->installContent();
+        }
+
+        if (! $this->option('skip-views')) {
+            $this->installViews();
+        }
+
+        if (! $this->option('skip-config')) {
+            $this->installConfig();
         }
 
         $this->newLine();
@@ -111,7 +121,6 @@ class CmsInstallCommand extends Command
             $this->info("Blueprint [{$collectionName}] installed.");
         }
 
-        // Install fieldsets
         $fieldsetSource = $this->packageResources . '/fieldsets';
 
         if (File::isDirectory($fieldsetSource)) {
@@ -252,5 +261,29 @@ class CmsInstallCommand extends Command
                 $this->info("Content [{$name}/{$relativePath}] installed.");
             }
         }
+    }
+
+    protected function installViews(): void
+    {
+        $this->info('--- Publishing Views ---');
+
+        $this->call('vendor:publish', [
+            '--tag' => 'cms-starter-views',
+            '--force' => false,
+        ]);
+
+        $this->info('Views published successfully.');
+    }
+
+    protected function installConfig(): void
+    {
+        $this->info('--- Publishing Config ---');
+
+        $this->call('vendor:publish', [
+            '--tag' => 'cms-starter-config',
+            '--force' => false,
+        ]);
+
+        $this->info('Config published successfully.');
     }
 }
