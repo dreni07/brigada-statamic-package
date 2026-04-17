@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 class CmsInstallCommand extends Command
 {
     protected $signature = 'cms:install
+        {--force : Overwrite existing blueprints, fieldsets, forms, and asset containers with the package versions. Does not touch content entries.}
         {--skip-user : Skip admin user creation}
         {--skip-blueprints : Skip blueprint installation}
         {--skip-collections : Skip collection creation}
@@ -22,13 +23,21 @@ class CmsInstallCommand extends Command
 
     protected string $packageResources;
 
+    protected bool $force = false;
+
     public function handle(): int
     {
         $this->packageResources = __DIR__ . '/../../resources';
+        $this->force = (bool) $this->option('force');
 
         $this->info('==========================================');
         $this->info('  Brigada Statamic CMS Starter Installer  ');
         $this->info('==========================================');
+
+        if ($this->force) {
+            $this->warn('Running with --force: existing blueprints, fieldsets, forms, and asset containers will be overwritten. Content entries are left untouched.');
+        }
+
         $this->newLine();
 
         if (! $this->option('skip-user')) {
@@ -111,14 +120,15 @@ class CmsInstallCommand extends Command
         foreach ($directories as $directory) {
             $collectionName = basename($directory);
             $destination = resource_path("blueprints/collections/{$collectionName}");
+            $existed = File::isDirectory($destination);
 
-            if (File::isDirectory($destination)) {
-                $this->warn("Blueprint directory [{$collectionName}] already exists. Skipping.");
+            if ($existed && ! $this->force) {
+                $this->warn("Blueprint directory [{$collectionName}] already exists. Skipping (use --force to overwrite).");
                 continue;
             }
 
             File::copyDirectory($directory, $destination);
-            $this->info("Blueprint [{$collectionName}] installed.");
+            $this->info("Blueprint [{$collectionName}] " . ($existed ? 'updated.' : 'installed.'));
         }
 
         $fieldsetSource = $this->packageResources . '/fieldsets';
@@ -130,14 +140,15 @@ class CmsInstallCommand extends Command
             foreach (File::files($fieldsetSource) as $file) {
                 $filename = $file->getFilename();
                 $destFile = "{$fieldsetDest}/{$filename}";
+                $existed = File::exists($destFile);
 
-                if (File::exists($destFile)) {
-                    $this->warn("Fieldset [{$filename}] already exists. Skipping.");
+                if ($existed && ! $this->force) {
+                    $this->warn("Fieldset [{$filename}] already exists. Skipping (use --force to overwrite).");
                     continue;
                 }
 
                 File::copy($file->getPathname(), $destFile);
-                $this->info("Fieldset [{$filename}] installed.");
+                $this->info("Fieldset [{$filename}] " . ($existed ? 'updated.' : 'installed.'));
             }
         }
     }
@@ -158,15 +169,16 @@ class CmsInstallCommand extends Command
         foreach ($files as $file) {
             $filename = $file->getFilename();
             $destination = base_path("content/collections/{$filename}");
+            $existed = File::exists($destination);
 
-            if (File::exists($destination)) {
-                $this->warn("Collection [{$filename}] already exists. Skipping.");
+            if ($existed && ! $this->force) {
+                $this->warn("Collection [{$filename}] already exists. Skipping (use --force to overwrite).");
                 continue;
             }
 
             File::ensureDirectoryExists(dirname($destination));
             File::copy($file->getPathname(), $destination);
-            $this->info("Collection [{$filename}] installed.");
+            $this->info("Collection [{$filename}] " . ($existed ? 'updated.' : 'installed.'));
         }
     }
 
@@ -186,15 +198,16 @@ class CmsInstallCommand extends Command
         foreach ($files as $file) {
             $filename = $file->getFilename();
             $destination = base_path("content/assets/{$filename}");
+            $existed = File::exists($destination);
 
-            if (File::exists($destination)) {
-                $this->warn("Asset container [{$filename}] already exists. Skipping.");
+            if ($existed && ! $this->force) {
+                $this->warn("Asset container [{$filename}] already exists. Skipping (use --force to overwrite).");
                 continue;
             }
 
             File::ensureDirectoryExists(dirname($destination));
             File::copy($file->getPathname(), $destination);
-            $this->info("Asset container [{$filename}] installed.");
+            $this->info("Asset container [{$filename}] " . ($existed ? 'updated.' : 'installed.'));
         }
     }
 
@@ -214,15 +227,16 @@ class CmsInstallCommand extends Command
         foreach ($files as $file) {
             $filename = $file->getFilename();
             $destination = resource_path("forms/{$filename}");
+            $existed = File::exists($destination);
 
-            if (File::exists($destination)) {
-                $this->warn("Form [{$filename}] already exists. Skipping.");
+            if ($existed && ! $this->force) {
+                $this->warn("Form [{$filename}] already exists. Skipping (use --force to overwrite).");
                 continue;
             }
 
             File::ensureDirectoryExists(dirname($destination));
             File::copy($file->getPathname(), $destination);
-            $this->info("Form [{$filename}] installed.");
+            $this->info("Form [{$filename}] " . ($existed ? 'updated.' : 'installed.'));
         }
     }
 
@@ -269,7 +283,7 @@ class CmsInstallCommand extends Command
 
         $this->call('vendor:publish', [
             '--tag' => 'cms-starter-views',
-            '--force' => false,
+            '--force' => $this->force,
         ]);
 
         $this->info('Views published successfully.');
@@ -281,7 +295,7 @@ class CmsInstallCommand extends Command
 
         $this->call('vendor:publish', [
             '--tag' => 'cms-starter-config',
-            '--force' => false,
+            '--force' => $this->force,
         ]);
 
         $this->info('Config published successfully.');
