@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @include('cms-starter::partials.seo-meta')
+    @include('cms-starter::partials.schema')
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

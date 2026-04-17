@@ -72,6 +72,8 @@ class CmsInstallCommand extends Command
             $this->installConfig();
         }
 
+        $this->ensureStorageLink();
+
         $this->newLine();
         $this->info('CMS installation complete!');
 
@@ -299,5 +301,18 @@ class CmsInstallCommand extends Command
         ]);
 
         $this->info('Config published successfully.');
+    }
+
+    protected function ensureStorageLink(): void
+    {
+        $link = public_path('storage');
+
+        if (file_exists($link)) {
+            return;
+        }
+
+        $this->info('--- Creating Storage Symlink ---');
+        $this->call('storage:link');
+        $this->info('Storage symlink created. Assets are now web-accessible.');
     }
 }

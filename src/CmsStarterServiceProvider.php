@@ -5,12 +5,14 @@ namespace Brigada\StatamicCmsStarter;
 use Brigada\StatamicCmsStarter\Commands\CmsInstallCommand;
 use Brigada\StatamicCmsStarter\Contracts\PageRepositoryContract;
 use Brigada\StatamicCmsStarter\Http\ViewComposers\NavComposer;
+use Brigada\StatamicCmsStarter\Http\ViewComposers\SchemaComposer;
 use Brigada\StatamicCmsStarter\Http\ViewComposers\SeoComposer;
 use Brigada\StatamicCmsStarter\Listeners\ConvertUploadedImageToWebp;
 use Brigada\StatamicCmsStarter\Repositories\StatamicPageRepository;
 use Brigada\StatamicCmsStarter\Services\AssetResolverService;
 use Brigada\StatamicCmsStarter\Services\DataNormalizerService;
 use Brigada\StatamicCmsStarter\Services\RobotsService;
+use Brigada\StatamicCmsStarter\Services\SchemaService;
 use Brigada\StatamicCmsStarter\Services\SitemapService;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\View;
@@ -28,6 +30,7 @@ class CmsStarterServiceProvider extends ServiceProvider
         $this->app->singleton(DataNormalizerService::class);
         $this->app->singleton(SitemapService::class);
         $this->app->singleton(RobotsService::class);
+        $this->app->singleton(SchemaService::class);
     }
 
     public function boot(): void
@@ -41,6 +44,7 @@ class CmsStarterServiceProvider extends ServiceProvider
         }
 
         View::composer('cms-starter::partials.seo-meta', SeoComposer::class);
+        View::composer('cms-starter::partials.schema', SchemaComposer::class);
         View::composer('cms-starter::partials.nav', NavComposer::class);
 
         if ($this->app->runningInConsole()) {
