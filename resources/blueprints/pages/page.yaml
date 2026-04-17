@@ -166,6 +166,751 @@ sections:
                         display: 'Form Handle'
                         default: contact
                         instructions: 'The handle of the Statamic form to render.'
+                faq:
+                  display: FAQ
+                  icon: list-bullet
+                  fields:
+                    -
+                      handle: section_heading
+                      field:
+                        type: text
+                        display: 'Section Heading'
+                    -
+                      handle: section_description
+                      field:
+                        type: textarea
+                        display: 'Section Description'
+                    -
+                      handle: items
+                      field:
+                        type: grid
+                        display: 'FAQ Items'
+                        add_row: 'Add Question'
+                        fields:
+                          -
+                            handle: question
+                            field:
+                              type: text
+                              display: Question
+                              validate:
+                                - required
+                          -
+                            handle: answer
+                            field:
+                              type: textarea
+                              display: Answer
+                              validate:
+                                - required
+                testimonials:
+                  display: Testimonials
+                  icon: quote
+                  fields:
+                    -
+                      handle: section_heading
+                      field:
+                        type: text
+                        display: 'Section Heading'
+                    -
+                      handle: section_description
+                      field:
+                        type: textarea
+                        display: 'Section Description'
+                    -
+                      handle: testimonials
+                      field:
+                        type: grid
+                        display: Testimonials
+                        add_row: 'Add Testimonial'
+                        fields:
+                          -
+                            handle: quote
+                            field:
+                              type: textarea
+                              display: Quote
+                              validate:
+                                - required
+                          -
+                            handle: author_name
+                            field:
+                              type: text
+                              display: 'Author Name'
+                              validate:
+                                - required
+                          -
+                            handle: author_role
+                            field:
+                              type: text
+                              display: 'Author Role / Company'
+                          -
+                            handle: author_avatar
+                            field:
+                              type: assets
+                              display: 'Author Avatar'
+                              container: images
+                              max_files: 1
+                          -
+                            handle: rating
+                            field:
+                              type: integer
+                              display: 'Star Rating (0-5)'
+                              instructions: 'Leave blank to hide stars. Values outside 0-5 are clamped.'
+                features:
+                  display: Features
+                  icon: light-bulb
+                  fields:
+                    -
+                      handle: section_heading
+                      field:
+                        type: text
+                        display: 'Section Heading'
+                    -
+                      handle: section_description
+                      field:
+                        type: textarea
+                        display: 'Section Description'
+                    -
+                      handle: columns
+                      field:
+                        type: select
+                        display: 'Columns per Row'
+                        default: 3
+                        cast_booleans: false
+                        options:
+                          2: '2 Columns'
+                          3: '3 Columns'
+                          4: '4 Columns'
+                    -
+                      handle: features
+                      field:
+                        type: grid
+                        display: Features
+                        add_row: 'Add Feature'
+                        fields:
+                          -
+                            handle: feature_title
+                            field:
+                              type: text
+                              display: Title
+                              validate:
+                                - required
+                          -
+                            handle: feature_description
+                            field:
+                              type: textarea
+                              display: Description
+                          -
+                            handle: icon_text
+                            field:
+                              type: text
+                              display: 'Icon (emoji or text)'
+                              instructions: 'Use an emoji or unicode symbol. Leave empty to use an icon image instead.'
+                          -
+                            handle: icon_image
+                            field:
+                              type: assets
+                              display: 'Icon Image'
+                              container: images
+                              max_files: 1
+                stats:
+                  display: 'Stats / Counters'
+                  icon: chart-bar
+                  fields:
+                    -
+                      handle: section_heading
+                      field:
+                        type: text
+                        display: 'Section Heading'
+                    -
+                      handle: section_description
+                      field:
+                        type: textarea
+                        display: 'Section Description'
+                    -
+                      handle: stats
+                      field:
+                        type: grid
+                        display: Stats
+                        add_row: 'Add Stat'
+                        fields:
+                          -
+                            handle: value
+                            field:
+                              type: text
+                              display: Value
+                              validate:
+                                - required
+                          -
+                            handle: label
+                            field:
+                              type: text
+                              display: Label
+                              validate:
+                                - required
+                          -
+                            handle: prefix
+                            field:
+                              type: text
+                              display: Prefix
+                              instructions: 'Optional prefix such as "$" or "~".'
+                          -
+                            handle: suffix
+                            field:
+                              type: text
+                              display: Suffix
+                              instructions: 'Optional suffix such as "+" or "%".'
+                team:
+                  display: Team
+                  icon: user-group
+                  fields:
+                    -
+                      handle: section_heading
+                      field:
+                        type: text
+                        display: 'Section Heading'
+                    -
+                      handle: section_description
+                      field:
+                        type: textarea
+                        display: 'Section Description'
+                    -
+                      handle: members
+                      field:
+                        type: grid
+                        display: 'Team Members'
+                        add_row: 'Add Member'
+                        fields:
+                          -
+                            handle: name
+                            field:
+                              type: text
+                              display: Name
+                              validate:
+                                - required
+                          -
+                            handle: role
+                            field:
+                              type: text
+                              display: Role
+                          -
+                            handle: bio
+                            field:
+                              type: textarea
+                              display: Bio
+                          -
+                            handle: photo
+                            field:
+                              type: assets
+                              display: Photo
+                              container: images
+                              max_files: 1
+                          -
+                            handle: email
+                            field:
+                              type: text
+                              display: Email
+                              input_type: email
+                          -
+                            handle: linkedin_url
+                            field:
+                              type: text
+                              display: 'LinkedIn URL'
+                              input_type: url
+                          -
+                            handle: twitter_url
+                            field:
+                              type: text
+                              display: 'Twitter / X URL'
+                              input_type: url
+                          -
+                            handle: website_url
+                            field:
+                              type: text
+                              display: 'Website URL'
+                              input_type: url
+                image_text:
+                  display: 'Image + Text'
+                  icon: layout-column-2
+                  fields:
+                    -
+                      handle: heading
+                      field:
+                        type: text
+                        display: Heading
+                        validate:
+                          - required
+                    -
+                      handle: subheading
+                      field:
+                        type: text
+                        display: Subheading
+                    -
+                      handle: content
+                      field:
+                        type: bard
+                        display: Content
+                        save_html: true
+                        buttons:
+                          - h3
+                          - bold
+                          - italic
+                          - unorderedlist
+                          - orderedlist
+                          - anchor
+                    -
+                      handle: image
+                      field:
+                        type: assets
+                        display: Image
+                        container: images
+                        max_files: 1
+                        validate:
+                          - required
+                    -
+                      handle: image_alt
+                      field:
+                        type: text
+                        display: 'Image Alt Text'
+                    -
+                      handle: image_position
+                      field:
+                        type: select
+                        display: 'Image Position'
+                        default: right
+                        options:
+                          left: Left
+                          right: Right
+                    -
+                      handle: button_text
+                      field:
+                        type: text
+                        display: 'Button Text'
+                    -
+                      handle: button_url
+                      field:
+                        type: text
+                        display: 'Button URL'
+                        input_type: url
+                    -
+                      handle: button_style
+                      field:
+                        type: select
+                        display: 'Button Style'
+                        default: primary
+                        options:
+                          primary: Primary
+                          secondary: Secondary
+                          outline: Outline
+                gallery:
+                  display: Gallery
+                  icon: images
+                  fields:
+                    -
+                      handle: section_heading
+                      field:
+                        type: text
+                        display: 'Section Heading'
+                    -
+                      handle: layout
+                      field:
+                        type: select
+                        display: Layout
+                        default: grid
+                        options:
+                          grid: 'Grid (equal size)'
+                          masonry: 'Masonry (variable heights)'
+                    -
+                      handle: columns
+                      field:
+                        type: select
+                        display: 'Columns per Row'
+                        default: 3
+                        cast_booleans: false
+                        options:
+                          2: '2 Columns'
+                          3: '3 Columns'
+                          4: '4 Columns'
+                    -
+                      handle: images
+                      field:
+                        type: grid
+                        display: Images
+                        add_row: 'Add Image'
+                        fields:
+                          -
+                            handle: image
+                            field:
+                              type: assets
+                              display: Image
+                              container: images
+                              max_files: 1
+                              validate:
+                                - required
+                          -
+                            handle: alt_text
+                            field:
+                              type: text
+                              display: 'Alt Text'
+                          -
+                            handle: caption
+                            field:
+                              type: text
+                              display: Caption
+                video:
+                  display: Video
+                  icon: video-file
+                  fields:
+                    -
+                      handle: section_heading
+                      field:
+                        type: text
+                        display: 'Section Heading'
+                    -
+                      handle: section_description
+                      field:
+                        type: textarea
+                        display: 'Section Description'
+                    -
+                      handle: source
+                      field:
+                        type: select
+                        display: Source
+                        default: youtube
+                        options:
+                          youtube: YouTube
+                          vimeo: Vimeo
+                          file: 'Uploaded file'
+                    -
+                      handle: video_url
+                      field:
+                        type: text
+                        display: 'Video URL'
+                        input_type: url
+                        instructions: 'Used when Source is YouTube or Vimeo.'
+                    -
+                      handle: video_file
+                      field:
+                        type: assets
+                        display: 'Video File'
+                        container: assets
+                        max_files: 1
+                        instructions: 'Used when Source is Uploaded file.'
+                    -
+                      handle: poster
+                      field:
+                        type: assets
+                        display: 'Poster Image'
+                        container: images
+                        max_files: 1
+                    -
+                      handle: autoplay
+                      field:
+                        type: toggle
+                        display: Autoplay
+                        default: false
+                    -
+                      handle: loop
+                      field:
+                        type: toggle
+                        display: Loop
+                        default: false
+                    -
+                      handle: muted
+                      field:
+                        type: toggle
+                        display: Muted
+                        default: false
+                pricing:
+                  display: 'Pricing Table'
+                  icon: pricing-tag
+                  fields:
+                    -
+                      handle: section_heading
+                      field:
+                        type: text
+                        display: 'Section Heading'
+                    -
+                      handle: section_description
+                      field:
+                        type: textarea
+                        display: 'Section Description'
+                    -
+                      handle: tiers
+                      field:
+                        type: grid
+                        display: 'Pricing Tiers'
+                        add_row: 'Add Tier'
+                        fields:
+                          -
+                            handle: tier_name
+                            field:
+                              type: text
+                              display: 'Tier Name'
+                              validate:
+                                - required
+                          -
+                            handle: tier_description
+                            field:
+                              type: textarea
+                              display: 'Short Description'
+                          -
+                            handle: price_prefix
+                            field:
+                              type: text
+                              display: 'Price Prefix'
+                              default: '$'
+                          -
+                            handle: price
+                            field:
+                              type: text
+                              display: Price
+                              validate:
+                                - required
+                          -
+                            handle: price_period
+                            field:
+                              type: text
+                              display: 'Price Period'
+                              instructions: 'e.g. "/month", "/user".'
+                          -
+                            handle: features
+                            field:
+                              type: grid
+                              display: Features
+                              mode: stacked
+                              add_row: 'Add Feature'
+                              fields:
+                                -
+                                  handle: feature
+                                  field:
+                                    type: text
+                                    display: 'Feature Text'
+                          -
+                            handle: button_text
+                            field:
+                              type: text
+                              display: 'Button Text'
+                          -
+                            handle: button_url
+                            field:
+                              type: text
+                              display: 'Button URL'
+                              input_type: url
+                          -
+                            handle: button_style
+                            field:
+                              type: select
+                              display: 'Button Style'
+                              default: primary
+                              options:
+                                primary: Primary
+                                secondary: Secondary
+                                outline: Outline
+                          -
+                            handle: is_featured
+                            field:
+                              type: toggle
+                              display: 'Highlight as Featured'
+                              default: false
+                spacer:
+                  display: 'Spacer / Divider'
+                  icon: resize-horizontal
+                  fields:
+                    -
+                      handle: size
+                      field:
+                        type: select
+                        display: Size
+                        default: md
+                        options:
+                          sm: Small
+                          md: Medium
+                          lg: Large
+                          xl: 'Extra Large'
+                    -
+                      handle: show_divider
+                      field:
+                        type: toggle
+                        display: 'Show Divider Line'
+                        default: false
+                columns:
+                  display: 'Multi-Column Layout'
+                  icon: layout-column-3
+                  fields:
+                    -
+                      handle: section_heading
+                      field:
+                        type: text
+                        display: 'Section Heading'
+                    -
+                      handle: column_count
+                      field:
+                        type: select
+                        display: 'Column Count'
+                        default: 3
+                        cast_booleans: false
+                        options:
+                          2: '2 Columns'
+                          3: '3 Columns'
+                          4: '4 Columns'
+                    -
+                      handle: vertical_align
+                      field:
+                        type: select
+                        display: 'Vertical Alignment'
+                        default: top
+                        options:
+                          top: Top
+                          center: Center
+                          bottom: Bottom
+                    -
+                      handle: columns
+                      field:
+                        type: grid
+                        display: Columns
+                        add_row: 'Add Column'
+                        fields:
+                          -
+                            handle: column_heading
+                            field:
+                              type: text
+                              display: Heading
+                          -
+                            handle: content
+                            field:
+                              type: bard
+                              display: Content
+                              save_html: true
+                              buttons:
+                                - bold
+                                - italic
+                                - unorderedlist
+                                - orderedlist
+                                - anchor
+                          -
+                            handle: column_image
+                            field:
+                              type: assets
+                              display: Image
+                              container: images
+                              max_files: 1
+                          -
+                            handle: button_text
+                            field:
+                              type: text
+                              display: 'Button Text'
+                          -
+                            handle: button_url
+                            field:
+                              type: text
+                              display: 'Button URL'
+                              input_type: url
+                          -
+                            handle: button_style
+                            field:
+                              type: select
+                              display: 'Button Style'
+                              default: primary
+                              options:
+                                primary: Primary
+                                secondary: Secondary
+                                outline: Outline
+                rich_text:
+                  display: 'Rich Text / HTML'
+                  icon: text-formatting-italic
+                  fields:
+                    -
+                      handle: format
+                      field:
+                        type: select
+                        display: Format
+                        default: bard
+                        options:
+                          bard: 'Rich Editor'
+                          raw_html: 'Raw HTML'
+                    -
+                      handle: max_width
+                      field:
+                        type: select
+                        display: 'Max Width'
+                        default: normal
+                        options:
+                          narrow: Narrow
+                          normal: Normal
+                          wide: Wide
+                    -
+                      handle: content
+                      field:
+                        type: bard
+                        display: Content
+                        save_html: true
+                        instructions: 'Used when Format is Rich Editor.'
+                        buttons:
+                          - h2
+                          - h3
+                          - h4
+                          - bold
+                          - italic
+                          - underline
+                          - strikethrough
+                          - unorderedlist
+                          - orderedlist
+                          - anchor
+                          - image
+                          - quote
+                          - code
+                          - codeblock
+                          - horizontalrule
+                    -
+                      handle: raw_html
+                      field:
+                        type: code
+                        display: 'Raw HTML'
+                        mode: htmlmixed
+                        instructions: 'Used when Format is Raw HTML. Rendered without escaping — only paste trusted markup.'
+                embed:
+                  display: 'Embed / Iframe'
+                  icon: code
+                  fields:
+                    -
+                      handle: section_heading
+                      field:
+                        type: text
+                        display: 'Section Heading'
+                    -
+                      handle: mode
+                      field:
+                        type: select
+                        display: Mode
+                        default: iframe
+                        options:
+                          iframe: Iframe
+                          html: 'Raw HTML'
+                    -
+                      handle: iframe_url
+                      field:
+                        type: text
+                        display: 'Iframe URL'
+                        input_type: url
+                        instructions: 'Used when Mode is Iframe.'
+                    -
+                      handle: iframe_title
+                      field:
+                        type: text
+                        display: 'Iframe Accessible Title'
+                        instructions: 'Shown to assistive technologies.'
+                    -
+                      handle: iframe_height
+                      field:
+                        type: integer
+                        display: 'Iframe Height (px)'
+                        default: 500
+                    -
+                      handle: raw_html
+                      field:
+                        type: code
+                        display: 'Raw HTML / Script'
+                        mode: htmlmixed
+                        instructions: 'Used when Mode is Raw HTML. Rendered without escaping.'
   seo:
     display: SEO
     fields:
