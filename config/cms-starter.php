@@ -23,4 +23,42 @@ return [
     */
     'register_routes' => true,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Sitemap
+    |--------------------------------------------------------------------------
+    |
+    | Controls whether the package registers the dynamic /sitemap.xml route.
+    | Set 'enabled' to false if your app provides its own sitemap.
+    |
+    */
+    'sitemap' => [
+        'enabled' => true,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Robots
+    |--------------------------------------------------------------------------
+    |
+    | Controls the dynamic /robots.txt route.
+    |
+    | - 'enabled'         → register the route or not.
+    | - 'include_sitemap' → append "Sitemap: <url>" when sitemap.enabled is true.
+    | - 'agents'          → one entry per User-agent block.
+    |                       Each supports 'user_agent', 'disallow', 'allow'.
+    |
+    */
+    'robots' => [
+        'enabled' => true,
+        'include_sitemap' => true,
+        'agents' => [
+            [
+                'user_agent' => '*',
+                'disallow' => [],
+                'allow' => [],
+            ],
+        ],
+    ],
+
 ];

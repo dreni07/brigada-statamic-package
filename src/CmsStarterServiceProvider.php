@@ -10,6 +10,8 @@ use Brigada\StatamicCmsStarter\Listeners\ConvertUploadedImageToWebp;
 use Brigada\StatamicCmsStarter\Repositories\StatamicPageRepository;
 use Brigada\StatamicCmsStarter\Services\AssetResolverService;
 use Brigada\StatamicCmsStarter\Services\DataNormalizerService;
+use Brigada\StatamicCmsStarter\Services\RobotsService;
+use Brigada\StatamicCmsStarter\Services\SitemapService;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +26,8 @@ class CmsStarterServiceProvider extends ServiceProvider
         $this->app->bind(PageRepositoryContract::class, StatamicPageRepository::class);
         $this->app->singleton(AssetResolverService::class);
         $this->app->singleton(DataNormalizerService::class);
+        $this->app->singleton(SitemapService::class);
+        $this->app->singleton(RobotsService::class);
     }
 
     public function boot(): void
