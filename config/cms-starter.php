@@ -98,4 +98,50 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Performance hints
+    |--------------------------------------------------------------------------
+    |
+    | Emits <link rel="preconnect"> and <link rel="preload"> tags in the
+    | page <head> so browsers can open network connections and fetch
+    | critical resources (LCP image, custom fonts) as early as possible.
+    |
+    | - preconnect: third-party origins you load from (fonts, analytics,
+    |   CDNs). Set 'crossorigin' => true for origins serving CORS assets
+    |   such as fonts. Set 'dns_prefetch' => true to also emit a
+    |   <link rel="dns-prefetch"> as a fallback for older browsers.
+    |
+    | - preload: resources the browser should start fetching immediately.
+    |   Required keys: 'href', 'as' (image, font, style, script, fetch).
+    |   For fonts set 'type' => 'font/woff2' and 'crossorigin' => true.
+    |   For the LCP image use 'as' => 'image' and optionally provide
+    |   'imagesrcset' / 'imagesizes' to match the responsive <img>.
+    |
+    */
+    'performance' => [
+        'preconnect' => [
+            // [
+            //     'href' => 'https://fonts.gstatic.com',
+            //     'crossorigin' => true,
+            //     'dns_prefetch' => false,
+            // ],
+        ],
+        'preload' => [
+            // [
+            //     'href' => '/fonts/inter.woff2',
+            //     'as' => 'font',
+            //     'type' => 'font/woff2',
+            //     'crossorigin' => true,
+            // ],
+            // [
+            //     'href' => '/storage/images/hero.webp',
+            //     'as' => 'image',
+            //     'fetchpriority' => 'high',
+            //     'imagesrcset' => '/storage/images/hero.webp 1x',
+            //     'imagesizes' => '100vw',
+            // ],
+        ],
+    ],
+
 ];

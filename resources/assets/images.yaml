@@ -1,6 +1,5 @@
 title: Images
-disk: public
-path: images
+disk: cms_starter_images
 allow_uploads: true
 allow_downloads: true
 allow_moving: true

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace Brigada\StatamicCmsStarter;
 
@@ -35,6 +35,8 @@ class CmsStarterServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->registerImagesDisk();
+
         Event::listen(AssetUploaded::class, ConvertUploadedImageToWebp::class);
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'cms-starter');
@@ -71,5 +73,23 @@ class CmsStarterServiceProvider extends ServiceProvider
                 __DIR__ . '/../config/cms-starter.php' => config_path('cms-starter.php'),
             ], 'cms-starter-config');
         }
+    }
+
+    
+    private function registerImagesDisk(): void
+    {
+        $handle = 'cms_starter_images';
+
+        if ($this->app['config']->has("filesystems.disks.{$handle}")) {
+            return;
+        }
+
+        $this->app['config']->set("filesystems.disks.{$handle}", [
+            'driver' => 'local',
+            'root' => storage_path('app/public/images'),
+            'url' => env('APP_URL') . '/storage/images',
+            'visibility' => 'public',
+            'throw' => false,
+        ]);
     }
 }
